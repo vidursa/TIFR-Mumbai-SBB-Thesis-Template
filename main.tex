@@ -1,0 +1,274 @@
+% !TeX spellcheck = en_US
+\documentclass[
+12pt,
+a4paper, 
+oneside, % Uncomment this for digital
+%twoside % Use twoside for printing.
+%openright % Uncomment this for printing
+]{book}
+% TIFR specified requirements
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace} %Set line spacing
+\onehalfspacing
+
+% If you use twoside, it will leave different margin for left and right. 
+% Initially you think it is unintutive but it is actually how book s are left. 
+% See this for further infomation -- https://tex.stackexchange.com/a/319146/105124
+
+%\usepackage{showframe} % This is to check margin area, you dont need it in general
+
+\usepackage[utf8x]{inputenc}
+
+% Footnote related
+\usepackage[bottom]{footmisc} %Footnotes in Tables. Load this before hyperref
+
+\author{Vidur Sabharwal}
+\usepackage[pdftex,
+pdfauthor={Vidur Sabharwal},
+pdftitle ={Regulation of Kinesin-3 motor UNC-104 by ubiquitin and ubiquitin-like modifications.},
+pdfsubject={Neuronal Cell Biology},
+pdfkeywords={Kinesin-3, UNC-104, ubiquitin, Thesis}, hidelinks]{hyperref} %References and hyperlinks 
+% Remove Hidelinks option from above if you want links
+\usepackage{bookmark} % Step 1: Load bookmark package after hyperref package
+
+
+\usepackage{graphicx, float, tikz-cd, xcolor, subcaption, chemfig} %Figures and Graphics
+\usepackage{caption, tabularx, booktabs, multirow, threeparttable, seqsplit, ltablex} %Tables related
+\usepackage[CaptionAfterwards]{fltpage} 
+% How to typeset variable names:
+\newcommand\vn[1]{\textit{#1}} 
+
+\usepackage{amsmath, amsfonts, amssymb, mathtools, calc} %Maths and Equations
+\usepackage{standalone} % load only in the main file
+\usepackage{fancyhdr} %For header
+\usepackage[skip=10pt plus1pt, indent=40pt]{parskip} %For paragraph spacing
+\usepackage{emptypage} % Removes header from empty pages
+\usepackage{longtable} % Multipage Tables
+\usepackage{makeidx} %To make index page
+\usepackage[totoc]{idxlayout} %To get index into TOC
+\usepackage[acronym,toc,nonumberlist,nogroupskip]{glossaries} %Acronyms, TOC option will add it to TOC. Page number from glossary removed, spacing between items consistent
+\usepackage[titletoc,title]{appendix} %For Appendix
+%\usepackage{svg} %Only if svg images needed
+%\setsvg{inkscape={"C:/Program Files/Inkscape/bin/inkscape.com"}} %change for inkscape path
+
+%Following math synmobols loaded in case text copied directly from Word or Google Docs
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+\DeclareUnicodeCharacter{03B2}{\ensuremath{\beta}}
+\DeclareUnicodeCharacter{03B3}{\ensuremath{\gamma}}
+\DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}}
+
+\usepackage[chapter, newfloat=true]{minted} %for inserting Python code
+\setminted{fontsize=\small,baselinestretch=1, linenos=true, frame=single, breaklines}
+\SetupFloatingEnvironment{listing}{name=Program code} %change 'listing' to 'Program code'
+\SetupFloatingEnvironment{listing}{listname=List of Program Codes} %change heading
+\newenvironment{longlisting}{\captionsetup{type=listing}}{} %prevent float error for large codes
+\usepackage{jupynotex} %For inserting Jupyter notebooks
+
+% The following describes a tree to store directory information, with image icons for folders and files------------------------
+\usepackage[edges]{forest}
+\newcolumntype{C}[1]{@{}>{\centering\arraybackslash}m{#1}@{}}
+
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+\newlength\Size
+\setlength\Size{4pt}
+\tikzset{%
+	folder/.pic={%
+		\filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);
+		\filldraw [draw=folderborder, top color=folderbg!50, bottom color=folderbg] (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+	},
+	file/.pic={%
+		\filldraw [draw=folderborder, top color=folderbg!5, bottom color=folderbg!10] (-\Size,.4*\Size+5pt) coordinate (a) |- (\Size,-1.2*\Size) coordinate (b) -- ++(0,1.6*\Size) coordinate (c) -- ++(-5pt,5pt) coordinate (d) -- cycle (d) |- (c) ;
+	},
+}
+\forestset{%
+	declare autowrapped toks={pic me}{},
+	declare boolean register={pic root},
+	pic root=0,
+	pic dir tree/.style={%
+		for tree={%
+			folder,
+			font=\ttfamily,
+			grow'=0,
+			inner sep =0,
+		},
+		before typesetting nodes={%
+			for tree={%
+				edge label+/.option={pic me},
+			},
+			if pic root={
+				tikz+={
+					\pic at ([xshift=\Size].west) {folder};
+				},
+				align={l}
+			}{},
+		},
+	},
+	pic me set/.code n args=2{%
+		\forestset{%
+			#1/.style={%
+				inner xsep=2\Size,
+				pic me={pic {#2}},
+			}
+		}
+	},
+	pic me set={directory}{folder},
+	pic me set={file}{file},
+}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\captionsetup[subfigure]{font={bf}, skip=1pt, singlelinecheck=false, labelformat=simple}
+\renewcommand{\thesubfigure}{\Alph{subfigure}} %Capital subfigure labels
+\usepackage[version=3]{mhchem} %Chemistry reactions if needed
+%\captionsetup{justification=raggedright}
+
+%Tikz-cd setup
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{positioning}
+
+% To order citation within multiple citations %% Only for natbib
+%\usepackage[sort]{natbib} %Need for sectionbib
+%\usepackage[sectionbib]{chapterbib} %References on each chapter
+
+% Citation manager
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+%Refrencing done using biblatex due to its ease. Natbib is newer and may be more customizable
+\usepackage[backend=biber,
+style=authoryear, 
+url=false,
+uniquename=false,
+%refsection=chapter %In case individual chapter references needed
+%sorting=nty
+]{biblatex}
+
+\AtBeginRefsection{\GenRefcontextData{sorting=nyt}}
+\AtEveryCite{\localrefcontext[sorting=nyt]}
+
+
+\addbibresource{Thesis.bib} %Biblatex file generated from Zotero and the plugin Better Bibtex (https://retorque.re/zotero-better-bibtex/)
+
+
+\allowdisplaybreaks %Allows equations to break page
+\usepackage[final]{pdfpages} %Include PDF page
+
+% Need to remove section numbers of appendix from TOC
+\usepackage{etoolbox}
+\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
+% reinstate the correct level for list of tables and figures
+\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
+\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{1}}}
+
+
+%Create new style to add header on each page
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\fancyhf{}
+\makeatletter
+\rhead{\fancyplain{}{\if@mainmatter \slshape\nouppercase{\leftmark}} \fi}
+\makeatother
+\lhead{\fancyplain{}{}} 
+\cfoot{\fancyplain{}{\thepage}}
+%\setlength{\headheight}{15pt}
+
+% Comment following Hypersetup during printing, can chnage as needed
+\hypersetup{ 
+	colorlinks = true, %Colours links instead of ugly boxes
+	urlcolor  = black, %Colour for external hyperlinks
+	linkcolor = black, %Colour of internal links
+	citecolor = black %Colour of citations
+}
+
+% Footnote related command
+\newcommand\pubnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+
+
+\setglossarypreamble[acronym]{\vspace*{-\baselineskip}} %Remove line after Glossaries
+\makeindex %Makes index file.
+\makeglossaries %Make glossary file
+
+\input{helpers/acronym} %Include add acronyms
+
+% For generating random text. You don't need it 
+\usepackage{blindtext}
+
+% Following new definition to align table text to left in case of multi-row and multi-column
+\usepackage{array}
+
+% Appendix related. Remove appendix sections from appearing in table of content
+\usepackage{etoolbox}
+\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
+\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
+\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{1}}}
+
+\usepackage{fancyhdr}
+
+
+\usepackage[document]{ragged2e}
+
+\begin{document}
+	\frontmatter
+% 01_Title 
+	\input{front_matter/cover_page}
+%	\includepdf[pages=-]{front_matter/thesiscoverpage.pdf}
+% 02_Prelim pages
+	\input{front_matter/declaration} %placeholder. Make sure it adheres to guidelines before submitting. Replace with the follwing pdf command to have the guides signature included.
+%	\includepdf[pages=-,addtotoc={1,chapter,1,Declaration,i}]{front_matter/OriginalThesisdeclarationpage.pdf} %Uncomment when signed pdf available before upload
+
+	\input{front_matter/acknowledgment}
+%	\input{front_matter/dedication} %if needed
+	\newpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\listfigurename}
+	\listoffigures
+	\newpage
+	\phantomsection %Bug in code requires this line to enable correct referencing
+	\addcontentsline{toc}{chapter}{\listtablename}
+	\listoftables
+	\glsaddall
+	\printglossary[type=acronym, title={Abbreviations}, style=alttree]
+% 03_Contents
+	\setcounter{tocdepth}{4}
+	\setcounter{secnumdepth}{3}
+	
+	\tableofcontents
+%\fi
+	\mainmatter
+	\begin{RaggedRight}
+% 04_Abstract
+	\newpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Abstract}
+	\input{front_matter/abstract}
+% 05_Chapter 1 Introduction
+	\include{chapters/chapter1}
+% Material and methods
+\include{chapters/chapter2_MnM}
+% 06_Chapter 2	
+	\include{chapters/chapter3}
+% 07_Chapter 3	
+	\include{chapters/chapter4}
+% 08_Chapter 4	
+	\include{chapters/chapter5}
+	 \end{RaggedRight}
+% 09_Appendix
+	% Switch off Caption if needed
+%	\captionsetup{list=no}
+	\include{appendix/discussion}
+	\input{front_matter/publications}
+	\include{appendix/appendix2} %Appendix section
+	\include{appendix/appendix5} %Codes
+	\include{appendix/appendix6} %Directory information
+	\bookmarksetup{startatroot} % Step 2: Add this line right before the references for correct hyperlinks
+	\chapter*{References}
+	\addcontentsline{toc}{chapter}{References}
+	\printbibliography[heading=none]
+\end{document}
+
+
