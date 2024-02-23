@@ -24,7 +24,7 @@ Just run `compile_thesis.bat` (double click it)
 Alternatively, one can compile using TeXstudio as well. 
 
 ## Known bugs
-1. The macro to generate folder structures takes a lot of memory. If compilation of the thesis halts due to lack of memory, or because -shell-escape is missing, you can either use -shell-escape or --extra-mem-bot=10000000 as suggested in this stackexchange post (https://tex.stackexchange.com/questions/7953/how-to-expand-texs-main-memory-size-pgfplots-memory-overload). If compiling from a latex editor such as TeXstudio, change these parameters from Options > Configure TeXStudio > Commands > pdflatex. The final command should look like "pdflatex.exe -synctex=1 -interaction=nonstopmode -shell-escape --extra-mem-bot=10000000 %.tex".
+1. The macro to generate folder structures takes a lot of memory. If compilation of the thesis halts due to lack of memory, or because --shell-escape is missing, you can either use --shell-escape or --extra-mem-bot=10000000 as suggested in this stackexchange post (https://tex.stackexchange.com/questions/7953/how-to-expand-texs-main-memory-size-pgfplots-memory-overload). If compiling from a latex editor such as TeXstudio, change these parameters from Options > Configure TeXStudio > Commands > pdflatex. The final command should look like "pdflatex.exe -synctex=1 -interaction=nonstopmode -shell-escape --extra-mem-bot=10000000 %.tex".
 
 2. If the glossary/acronym list isn't displayed the first time the thesis is compiled, run the Make_glossary.bat file once. The second compilation should automatically include the glossary.
 
