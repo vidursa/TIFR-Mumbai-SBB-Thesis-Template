@@ -12,15 +12,9 @@ oneside, % Uncomment this for digital
 \onehalfspacing
 
 % If you use twoside, it will leave different margin for left and right. 
-% Initially you think it is unintutive but it is actually how book s are left. 
 % See this for further infomation -- https://tex.stackexchange.com/a/319146/105124
 
-%\usepackage{showframe} % This is to check margin area, you dont need it in general
-
 \usepackage[utf8x]{inputenc}
-
-% Footnote related
-\usepackage[bottom]{footmisc} %Footnotes in Tables. Load this before hyperref
 
 \author{Vidur Sabharwal}
 \usepackage[pdftex,
@@ -31,19 +25,12 @@ pdfkeywords={Kinesin-3, UNC-104, ubiquitin, Thesis}, hidelinks]{hyperref} %Refer
 % Remove Hidelinks option from above if you want links
 \usepackage{bookmark} % Step 1: Load bookmark package after hyperref package
 
-
 \usepackage{graphicx, float, tikz-cd, xcolor, subcaption, chemfig} %Figures and Graphics
 \usepackage{caption, tabularx, booktabs, multirow, threeparttable, seqsplit, ltablex} %Tables related
-\usepackage[CaptionAfterwards]{fltpage} 
-% How to typeset variable names:
-\newcommand\vn[1]{\textit{#1}} 
 
-\usepackage{amsmath, amsfonts, amssymb, mathtools, calc} %Maths and Equations
-\usepackage{standalone} % load only in the main file
 \usepackage{fancyhdr} %For header
 \usepackage[skip=10pt plus1pt, indent=40pt]{parskip} %For paragraph spacing
 \usepackage{emptypage} % Removes header from empty pages
-\usepackage{longtable} % Multipage Tables
 \usepackage{makeidx} %To make index page
 \usepackage[totoc]{idxlayout} %To get index into TOC
 \usepackage[acronym,toc,nonumberlist,nogroupskip]{glossaries} %Acronyms, TOC option will add it to TOC. Page number from glossary removed, spacing between items consistent
@@ -57,12 +44,13 @@ pdfkeywords={Kinesin-3, UNC-104, ubiquitin, Thesis}, hidelinks]{hyperref} %Refer
 \DeclareUnicodeCharacter{03B3}{\ensuremath{\gamma}}
 \DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}}
 
-\usepackage[chapter, newfloat=true]{minted} %for inserting Python code
-\setminted{fontsize=\small,baselinestretch=1, linenos=true, frame=single, breaklines}
-\SetupFloatingEnvironment{listing}{name=Program code} %change 'listing' to 'Program code'
-\SetupFloatingEnvironment{listing}{listname=List of Program Codes} %change heading
-\newenvironment{longlisting}{\captionsetup{type=listing}}{} %prevent float error for large codes
-\usepackage{jupynotex} %For inserting Jupyter notebooks
+%Uncomment if codes are added in the thesis appendix --also read README.md for proper installation of minted
+%\usepackage[chapter, newfloat=true]{minted} %for inserting Python code
+%\setminted{fontsize=\small,baselinestretch=1, linenos=true, frame=single, breaklines}
+%\SetupFloatingEnvironment{listing}{name=Program code} %change 'listing' to 'Program code'
+%\SetupFloatingEnvironment{listing}{listname=List of Program Codes} %change heading
+%\newenvironment{longlisting}{\captionsetup{type=listing}}{} %prevent float error for large codes
+%\usepackage{jupynotex} %For inserting Jupyter notebooks
 
 % The following describes a tree to store directory information, with image icons for folders and files------------------------
 \usepackage[edges]{forest}
@@ -120,35 +108,15 @@ pdfkeywords={Kinesin-3, UNC-104, ubiquitin, Thesis}, hidelinks]{hyperref} %Refer
 \captionsetup[subfigure]{font={bf}, skip=1pt, singlelinecheck=false, labelformat=simple}
 \renewcommand{\thesubfigure}{\Alph{subfigure}} %Capital subfigure labels
 \usepackage[version=3]{mhchem} %Chemistry reactions if needed
-%\captionsetup{justification=raggedright}
-
-%Tikz-cd setup
-\usetikzlibrary{decorations.text}
-\usetikzlibrary{positioning}
-
-% To order citation within multiple citations %% Only for natbib
-%\usepackage[sort]{natbib} %Need for sectionbib
-%\usepackage[sectionbib]{chapterbib} %References on each chapter
-
-% Citation manager
-\usepackage[english]{babel}
-\usepackage{csquotes}
 
 %Refrencing done using biblatex due to its ease. Natbib is newer and may be more customizable
 \usepackage[backend=biber,
 style=authoryear, 
 url=false,
-uniquename=false,
-%refsection=chapter %In case individual chapter references needed
-%sorting=nty
+uniquename=false
 ]{biblatex}
 
-\AtBeginRefsection{\GenRefcontextData{sorting=nyt}}
-\AtEveryCite{\localrefcontext[sorting=nyt]}
-
-
 \addbibresource{Thesis.bib} %Biblatex file generated from Zotero and the plugin Better Bibtex (https://retorque.re/zotero-better-bibtex/)
-
 
 \allowdisplaybreaks %Allows equations to break page
 \usepackage[final]{pdfpages} %Include PDF page
@@ -170,7 +138,7 @@ uniquename=false,
 \makeatother
 \lhead{\fancyplain{}{}} 
 \cfoot{\fancyplain{}{\thepage}}
-%\setlength{\headheight}{15pt}
+\setlength{\headheight}{15pt}
 
 % Comment following Hypersetup during printing, can chnage as needed
 \hypersetup{ 
@@ -179,15 +147,6 @@ uniquename=false,
 	linkcolor = black, %Colour of internal links
 	citecolor = black %Colour of citations
 }
-
-% Footnote related command
-\newcommand\pubnote[1]{%
-	\begingroup
-	\renewcommand\thefootnote{}\footnote{#1}%
-	\addtocounter{footnote}{-1}%
-	\endgroup
-}
-
 
 \setglossarypreamble[acronym]{\vspace*{-\baselineskip}} %Remove line after Glossaries
 \makeindex %Makes index file.
@@ -201,28 +160,19 @@ uniquename=false,
 % Following new definition to align table text to left in case of multi-row and multi-column
 \usepackage{array}
 
-% Appendix related. Remove appendix sections from appearing in table of content
-\usepackage{etoolbox}
-\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
-\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
-\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{1}}}
-
-\usepackage{fancyhdr}
-
-
 \usepackage[document]{ragged2e}
 
 \begin{document}
 	\frontmatter
-% 01_Title 
+	% 01_Title 
 	\input{front_matter/cover_page}
-%	\includepdf[pages=-]{front_matter/thesiscoverpage.pdf}
-% 02_Prelim pages
+	%	\includepdf[pages=-]{front_matter/thesiscoverpage.pdf}
+	% 02_Prelim pages
 	\input{front_matter/declaration} %placeholder. Make sure it adheres to guidelines before submitting. Replace with the follwing pdf command to have the guides signature included.
-%	\includepdf[pages=-,addtotoc={1,chapter,1,Declaration,i}]{front_matter/OriginalThesisdeclarationpage.pdf} %Uncomment when signed pdf available before upload
-
+	%	\includepdf[pages=-,addtotoc={1,chapter,1,Declaration,i}]{front_matter/OriginalThesisdeclarationpage.pdf} %Uncomment when signed pdf available before upload
+	
 	\input{front_matter/acknowledgment}
-%	\input{front_matter/dedication} %if needed
+	%	\input{front_matter/dedication} %if needed
 	\newpage
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\listfigurename}
@@ -233,37 +183,33 @@ uniquename=false,
 	\listoftables
 	\glsaddall
 	\printglossary[type=acronym, title={Abbreviations}, style=alttree]
-% 03_Contents
+	% 03_Contents
 	\setcounter{tocdepth}{4}
 	\setcounter{secnumdepth}{3}
-	
 	\tableofcontents
-%\fi
 	\mainmatter
 	\begin{RaggedRight}
-% 04_Abstract
-	\newpage
-	\phantomsection
-	\addcontentsline{toc}{chapter}{Abstract}
-	\input{front_matter/abstract}
-% 05_Chapter 1 Introduction
-	\include{chapters/chapter1}
-% Material and methods
-\include{chapters/chapter2_MnM}
-% 06_Chapter 2	
-	\include{chapters/chapter3}
-% 07_Chapter 3	
-	\include{chapters/chapter4}
-% 08_Chapter 4	
-	\include{chapters/chapter5}
-	 \end{RaggedRight}
-% 09_Appendix
-	% Switch off Caption if needed
-%	\captionsetup{list=no}
+		% 04_Abstract
+		\newpage
+		\phantomsection
+		\addcontentsline{toc}{chapter}{Abstract}
+		\input{front_matter/abstract}
+		% 05_Chapter 1 Introduction
+		\include{chapters/chapter1}
+		% Material and methods
+		\include{chapters/chapter2_MnM}
+		% 06_Chapter 2	
+		\include{chapters/chapter3}
+		% 07_Chapter 3	
+		\include{chapters/chapter4}
+		% 08_Chapter 4	
+		\include{chapters/chapter5}
+	\end{RaggedRight}
+	% 09_Appendix
 	\include{appendix/discussion}
 	\input{front_matter/publications}
 	\include{appendix/appendix2} %Appendix section
-	\include{appendix/appendix5} %Codes
+	%	\include{appendix/appendix5} %Codes Uncomment if needed
 	\include{appendix/appendix6} %Directory information
 	\bookmarksetup{startatroot} % Step 2: Add this line right before the references for correct hyperlinks
 	\chapter*{References}
