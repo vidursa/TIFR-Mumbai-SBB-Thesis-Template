@@ -30,6 +30,4 @@ Alternatively, one can compile using TeXstudio as well.
 
 3. The reference seem to be duplicated for now. I didn't get time to troubleshoot it yet, but as a hack, once the thesis is compiled, you can delete the duplicated references from the .bbl file directly
 
-Note: I have disabled including separate references for each chapter since it may be redundant. However, some reviewers are known to ask for it. You may need the `natbib` and `chapterbib` packages as used in .
- 
-
+Note: I have disabled including separate references for each chapter since it is redundant and not required as per SBB guidelines. However, some reviewers are known to ask for it. You may need the `natbib` and `chapterbib` packages as used in (https://github.com/rohitsuratekar/ncbs-tifr-thesis-template).
